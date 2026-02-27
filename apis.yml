@@ -1,0 +1,67 @@
+name: Trioptima
+description: Trioptima provides post-trade infrastructure services for the derivatives market, including portfolio reconciliation, compression, and risk mitigation services. Part of CME Group, Trioptima helps financial institutions reduce operational risk and optimize capital requirements through innovative portfolio management solutions.
+image: https://www.trioptima.com/logo.png
+url: https://www.trioptima.com
+created: '2025'
+modified: '2025'
+specificationVersion: '0.18'
+apis:
+- name: Trioptima triResolve API
+  description: API for managing trade dispute resolution and break management services, enabling automated reconciliation and exception handling for derivatives portfolios.
+  image: https://www.trioptima.com/triresolve-logo.png
+  humanURL: https://www.trioptima.com/services/triresolve
+  baseURL: https://api.trioptima.com/triresolve
+  tags:
+  - Reconciliation
+  - Disputes
+  - Trade Breaks
+  - Risk Management
+  properties:
+  - type: Documentation
+    url: https://www.trioptima.com/api/triresolve/docs
+  - type: OpenAPI
+    url: https://api.trioptima.com/triresolve/openapi.json
+  - type: Authentication
+    url: https://www.trioptima.com/api/authentication
+- name: Trioptima triReduce API
+  description: API for portfolio compression services that help reduce notional outstanding and manage counterparty risk through multilateral optimization of derivatives portfolios.
+  image: https://www.trioptima.com/trireduce-logo.png
+  humanURL: https://www.trioptima.com/services/trireduce
+  baseURL: https://api.trioptima.com/trireduce
+  tags:
+  - Compression
+  - Portfolio Optimization
+  - Risk Reduction
+  - Derivatives
+  properties:
+  - type: Documentation
+    url: https://www.trioptima.com/api/trireduce/docs
+  - type: OpenAPI
+    url: https://api.trioptima.com/trireduce/openapi.json
+- name: Trioptima triBalance API
+  description: API for portfolio reconciliation services enabling firms to identify and resolve discrepancies in trade populations and valuations with their counterparties.
+  image: https://www.trioptima.com/tribalance-logo.png
+  humanURL: https://www.trioptima.com/services/tribalance
+  baseURL: https://api.trioptima.com/tribalance
+  tags:
+  - Reconciliation
+  - Portfolio Management
+  - Valuations
+  - Reporting
+  properties:
+  - type: Documentation
+    url: https://www.trioptima.com/api/tribalance/docs
+  - type: OpenAPI
+    url: https://api.trioptima.com/tribalance/openapi.json
+maintainers:
+- FN: Trioptima API Team
+  email: api-support@trioptima.com
+  url: https://www.trioptima.com
+tags:
+- Financial Services
+- Derivatives
+- Risk Management
+- Post-Trade Services
+- Reconciliation
+- Portfolio Compression
+- CME Group
