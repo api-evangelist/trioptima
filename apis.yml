@@ -3,7 +3,7 @@ description: Trioptima provides post-trade infrastructure services for the deriv
 image: https://www.trioptima.com/logo.png
 url: https://www.trioptima.com
 created: '2025'
-modified: '2025'
+modified: '2026-03-16'
 specificationVersion: '0.18'
 apis:
 - name: Trioptima triResolve API
@@ -54,9 +54,8 @@ apis:
   - type: OpenAPI
     url: https://api.trioptima.com/tribalance/openapi.json
 maintainers:
-- FN: Trioptima API Team
-  email: api-support@trioptima.com
-  url: https://www.trioptima.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 tags:
 - Financial Services
 - Derivatives
