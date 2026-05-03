@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/trioptima/blob/main/json-schema/trioptima-trade-schema.json",
+  "title": "Trioptima Trade",
+  "description": "Schema for a derivative trade in a triReduce compression cycle",
+  "type": "object",
+  "required": ["tradeId", "notional", "currency", "maturityDate"],
+  "properties": {
+    "tradeId": {
+      "type": "string",
+      "description": "Unique Trade Identifier (UTI) or internal participant trade ID"
+    },
+    "counterpartyId": {
+      "type": "string",
+      "description": "Counterparty Legal Entity Identifier (LEI)"
+    },
+    "notional": {
+      "type": "number",
+      "description": "Trade notional amount in the trade currency",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Notional currency (ISO 4217)",
+      "examples": ["USD", "EUR", "GBP", "JPY", "CHF"]
+    },
+    "maturityDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Trade maturity date"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Trade effective start date"
+    },
+    "fixedRate": {
+      "type": "number",
+      "description": "Fixed coupon rate for interest rate swaps",
+      "minimum": -1,
+      "maximum": 1
+    },
+    "payReceive": {
+      "type": "string",
+      "description": "Whether the participant pays or receives the fixed leg",
+      "enum": ["PAY", "RECEIVE"]
+    },
+    "clearingHouse": {
+      "type": "string",
+      "description": "Central counterparty clearing house",
+      "examples": ["LCH", "CME", "Eurex", "JSCC"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Trade status in the compression cycle",
+      "enum": ["submitted", "accepted", "rejected", "terminated"]
+    }
+  }
+}

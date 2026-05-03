@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://rates.trireduce.com/api/v1/cycles?status=open",
+    "headers": {
+      "Authorization": "Bearer {oauth_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": [
+      {
+        "id": "CYC-2024-IRS-001",
+        "type": "cleared",
+        "assetClass": "IRS",
+        "currency": "USD",
+        "status": "open",
+        "submissionDeadline": "2024-05-15T17:00:00Z",
+        "optimizationDate": "2024-05-16",
+        "settlementDate": "2024-05-20",
+        "participantCount": 24,
+        "description": "USD Cleared IRS Compression Cycle - May 2024"
+      },
+      {
+        "id": "CYC-2024-EUR-002",
+        "type": "cleared",
+        "assetClass": "IRS",
+        "currency": "EUR",
+        "status": "open",
+        "submissionDeadline": "2024-05-15T17:00:00Z",
+        "optimizationDate": "2024-05-16",
+        "settlementDate": "2024-05-20",
+        "participantCount": 18,
+        "description": "EUR Cleared IRS Compression Cycle - May 2024"
+      }
+    ]
+  }
+}

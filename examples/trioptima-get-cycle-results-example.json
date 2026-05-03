@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://rates.trireduce.com/api/v1/cycles/CYC-2024-IRS-001/results",
+    "headers": {
+      "Authorization": "Bearer {oauth_token}",
+      "Accept": "application/json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "cycleId": "CYC-2024-IRS-001",
+      "status": "pending_confirmation",
+      "summary": {
+        "originalNotional": 1250000000,
+        "compressedNotional": 312500000,
+        "notionalReduction": 937500000,
+        "reductionPercentage": 75.0,
+        "tradesTerminated": 47,
+        "newTradesCreated": 12
+      },
+      "terminations": [
+        {
+          "tradeId": "UTI-FIRM-001-2020050001",
+          "notional": 100000000,
+          "currency": "USD",
+          "maturityDate": "2030-05-15",
+          "status": "terminated"
+        }
+      ],
+      "newTrades": [
+        {
+          "tradeId": "TRIREDUCE-CYC-2024-IRS-001-NEW-001",
+          "notional": 25000000,
+          "currency": "USD",
+          "maturityDate": "2030-05-15",
+          "fixedRate": 0.0175,
+          "payReceive": "PAY",
+          "clearingHouse": "LCH",
+          "status": "submitted"
+        }
+      ]
+    }
+  }
+}

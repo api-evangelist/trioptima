@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://rates.trireduce.com/api/v1/cycles/CYC-2024-IRS-001/trades",
+    "headers": {
+      "Authorization": "Bearer {oauth_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "trades": [
+        {
+          "tradeId": "UTI-FIRM-001-2020050001",
+          "counterpartyId": "7H6GLXDRUGQFU57RNE97",
+          "notional": 100000000,
+          "currency": "USD",
+          "maturityDate": "2030-05-15",
+          "startDate": "2020-05-15",
+          "fixedRate": 0.0175,
+          "payReceive": "PAY",
+          "clearingHouse": "LCH"
+        },
+        {
+          "tradeId": "UTI-FIRM-002-2021030015",
+          "counterpartyId": "7H6GLXDRUGQFU57RNE97",
+          "notional": 75000000,
+          "currency": "USD",
+          "maturityDate": "2031-03-20",
+          "startDate": "2021-03-20",
+          "fixedRate": 0.0215,
+          "payReceive": "RECEIVE",
+          "clearingHouse": "LCH"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "success": true,
+      "message": "2 trades submitted successfully",
+      "recordsProcessed": 2,
+      "errors": []
+    }
+  }
+}

@@ -1,0 +1,327 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Trioptima triReduce API"
+  description: "Portfolio compression API for OTC derivatives. Enables automation of trilateral compression cycles including trade submission, risk data upload, and results confirmation."
+  tags:
+    - Compression
+    - Derivatives
+    - Financial Services
+    - Portfolio Optimization
+    - Post-Trade Services
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TRIREDUCE_OAUTH_TOKEN: TRIREDUCE_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: trireduce
+      baseUri: "https://rates.trireduce.com/api/v1"
+      description: "triReduce portfolio compression API for OTC derivatives"
+      authentication:
+        type: bearer
+        token: "{{env.TRIREDUCE_OAUTH_TOKEN}}"
+      resources:
+        - name: cycles
+          path: /cycles
+          description: "Compression cycle discovery and management"
+          operations:
+            - name: list-cycles
+              method: GET
+              description: "List available compression cycles filtered by status and type"
+              inputParameters:
+                - name: status
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by cycle status (open, submission, optimization, completed)"
+                - name: type
+                  in: query
+                  type: string
+                  required: false
+                  description: "Filter by cycle type (cleared, bilateral)"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-cycle
+              method: GET
+              description: "Get detailed information about a specific compression cycle"
+              inputParameters:
+                - name: cycleId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Unique cycle identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: cycle-trades
+          path: /cycles/{cycleId}/trades
+          description: "Trade submission and retrieval for compression cycles"
+          operations:
+            - name: list-cycle-trades
+              method: GET
+              description: "List trades submitted for a compression cycle"
+              inputParameters:
+                - name: cycleId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Compression cycle identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: submit-cycle-trades
+              method: POST
+              description: "Submit trade population for a compression cycle"
+              inputParameters:
+                - name: cycleId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Compression cycle identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  trades: "{{tools.trades}}"
+
+        - name: cycle-risk
+          path: /cycles/{cycleId}/risk
+          description: "Risk data management for compression cycles"
+          operations:
+            - name: get-cycle-risk
+              method: GET
+              description: "Get risk data submitted for a compression cycle"
+              inputParameters:
+                - name: cycleId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Compression cycle identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: submit-cycle-risk
+              method: POST
+              description: "Submit delta ladder risk constraints for compression"
+              inputParameters:
+                - name: cycleId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Compression cycle identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  currency: "{{tools.currency}}"
+                  deltaLadder: "{{tools.delta_ladder}}"
+
+        - name: cycle-results
+          path: /cycles/{cycleId}/results
+          description: "Compression results and confirmation"
+          operations:
+            - name: get-cycle-results
+              method: GET
+              description: "Get compression results including terminations and new trades"
+              inputParameters:
+                - name: cycleId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Compression cycle identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: confirm-cycle-results
+              method: POST
+              description: "Confirm or reject compression results"
+              inputParameters:
+                - name: cycleId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Compression cycle identifier"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  confirmed: "{{tools.confirmed}}"
+                  comment: "{{tools.comment}}"
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: trireduce-rest
+      resources:
+        - path: /v1/cycles
+          name: cycles
+          description: "Compression cycle management"
+          operations:
+            - method: GET
+              name: list-cycles
+              description: "List available compression cycles"
+              call: "trireduce.list-cycles"
+              with:
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/cycles/{cycleId}/trades
+          name: trades
+          description: "Trade submission for cycles"
+          operations:
+            - method: POST
+              name: submit-trades
+              description: "Submit trades for compression"
+              call: "trireduce.submit-cycle-trades"
+              with:
+                cycleId: "rest.cycleId"
+                trades: "rest.body.trades"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/cycles/{cycleId}/results
+          name: results
+          description: "Compression results"
+          operations:
+            - method: GET
+              name: get-results
+              description: "Get cycle compression results"
+              call: "trireduce.get-cycle-results"
+              with:
+                cycleId: "rest.cycleId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: trireduce-mcp
+      transport: http
+      tools:
+        - name: list-compression-cycles
+          description: "List available triReduce compression cycles"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trireduce.list-cycles"
+          with:
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-cycle-details
+          description: "Get details for a specific compression cycle"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trireduce.get-cycle"
+          with:
+            cycleId: "tools.cycleId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-submitted-trades
+          description: "List trades submitted for a compression cycle"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trireduce.list-cycle-trades"
+          with:
+            cycleId: "tools.cycleId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-trades-for-compression
+          description: "Submit trade population for a triReduce compression cycle"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "trireduce.submit-cycle-trades"
+          with:
+            cycleId: "tools.cycleId"
+            trades: "tools.trades"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-risk-data
+          description: "Get risk data (delta ladders) submitted for a cycle"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trireduce.get-cycle-risk"
+          with:
+            cycleId: "tools.cycleId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: submit-risk-constraints
+          description: "Submit delta ladder risk constraints for compression cycle"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "trireduce.submit-cycle-risk"
+          with:
+            cycleId: "tools.cycleId"
+            currency: "tools.currency"
+            delta_ladder: "tools.delta_ladder"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-compression-results
+          description: "Get compression results including notional reduction and terminations"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "trireduce.get-cycle-results"
+          with:
+            cycleId: "tools.cycleId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: confirm-compression-results
+          description: "Confirm or reject compression results for settlement"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "trireduce.confirm-cycle-results"
+          with:
+            cycleId: "tools.cycleId"
+            confirmed: "tools.confirmed"
+            comment: "tools.comment"
+          outputParameters:
+            - type: object
+              mapping: "$."

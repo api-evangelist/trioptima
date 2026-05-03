@@ -1,0 +1,137 @@
+vocabulary:
+  name: Trioptima Vocabulary
+  description: >-
+    Domain vocabulary for Trioptima post-trade infrastructure services,
+    covering portfolio compression (triReduce), portfolio reconciliation (triResolve),
+    and related OTC derivatives risk management concepts.
+  version: "2026"
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+terms:
+  - term: Portfolio Compression
+    definition: >-
+      A process that reduces the gross notional outstanding of OTC derivatives portfolios
+      by identifying and terminating economically offsetting trades and replacing them
+      with a smaller set of replacement trades that preserve the net risk profile.
+      Compression reduces operational burden, counterparty exposure, and regulatory
+      capital requirements under Basel III / CRR2.
+    tags:
+      - Capital Optimization
+      - Compression
+      - Risk Management
+
+  - term: triReduce
+    definition: >-
+      Trioptima's multilateral portfolio compression service for OTC interest rate,
+      credit, and FX derivatives. triReduce organizes compression cycles in which
+      multiple participants submit trade and risk data. An optimization algorithm
+      identifies the maximum set of trades that can be terminated while preserving
+      each participant's risk profile within specified tolerances.
+    tags:
+      - Compression
+      - Services
+
+  - term: triResolve
+    definition: >-
+      Trioptima's portfolio reconciliation service for OTC derivatives. triResolve
+      normalizes trade data submitted by bilateral counterparties, reconciles all
+      trade fields algorithmically, and provides break workflow for identifying and
+      resolving discrepancies in trade populations and valuations.
+    tags:
+      - Reconciliation
+      - Services
+
+  - term: Compression Cycle
+    definition: >-
+      A scheduled compression run in triReduce. A cycle has a defined submission
+      deadline (by which participants must submit trade and risk data), an optimization
+      date (when the algorithm runs), and a settlement date (when terminations and
+      new trades are processed). Cycles are classified by asset class (IRS, CDS, FX)
+      and clearing type (cleared, bilateral).
+    tags:
+      - Compression
+      - Lifecycle
+
+  - term: Delta Ladder
+    definition: >-
+      A representation of a portfolio's interest rate risk broken down by tenor bucket
+      (1Y, 2Y, 5Y, 10Y, 30Y, etc.), expressed as DV01 (dollar value of a basis point).
+      In triReduce, participants submit delta ladders as risk constraints to define the
+      maximum allowable change in their aggregate risk profile after compression.
+    tags:
+      - Risk Management
+
+  - term: DV01
+    definition: >-
+      Dollar Value of a Basis Point. The change in mark-to-market value of a portfolio
+      for a 1 basis point (0.01%) parallel shift in interest rates. Used as the primary
+      risk measure in triReduce delta ladder submissions.
+    tags:
+      - Risk Management
+
+  - term: Notional Reduction
+    definition: >-
+      The reduction in gross notional outstanding achieved by a compression cycle.
+      Expressed as an absolute amount and as a percentage of the original notional.
+      Higher reductions indicate more efficient compression and greater capital savings.
+    tags:
+      - Capital Optimization
+      - Metrics
+
+  - term: Trade Break
+    definition: >-
+      A discrepancy identified during portfolio reconciliation where two counterparties
+      report different economic terms or valuations for the same trade. triResolve
+      categorizes breaks by severity and provides workflow tools for investigation
+      and resolution.
+    tags:
+      - Reconciliation
+      - Risk Management
+
+  - term: UTI
+    definition: >-
+      Unique Trade Identifier. A globally unique identifier for an OTC derivatives
+      trade, required under EMIR and CFTC reporting regulations. Used in triReduce
+      to identify individual trades within compression cycles.
+    tags:
+      - Compliance
+      - Trade Identification
+
+  - term: LEI
+    definition: >-
+      Legal Entity Identifier. A 20-character alphanumeric code that uniquely identifies
+      legal entities participating in financial transactions. Required for EMIR/Dodd-Frank
+      reporting and used in triResolve to identify counterparties.
+    tags:
+      - Compliance
+      - Identity
+
+  - term: CCP
+    definition: >-
+      Central Counterparty. A financial institution that interposes itself between
+      the buyer and seller of a derivative contract, becoming the buyer to every
+      seller and the seller to every buyer. Examples: LCH, CME Clearing, Eurex Clearing.
+      Cleared compression via triReduce requires CCP participation.
+    tags:
+      - Clearing
+      - Market Infrastructure
+
+  - term: OSTTRA
+    definition: >-
+      A post-trade services company formed in 2021 as a joint venture combining
+      MarkitServ, Traiana, TriOptima, and Reset. OSTTRA provides comprehensive
+      post-trade processing infrastructure for OTC derivatives including confirmation,
+      compression, reconciliation, and reporting services.
+    tags:
+      - Corporate
+
+  - term: QuickPort
+    definition: >-
+      triResolve's secure portfolio data delivery interface. Allows participants to
+      upload trade data manually via web browser or programmatically via SFTP API
+      file transfer. Provides a fast path for participants who cannot use direct
+      API integration.
+    tags:
+      - Integration
+      - Reconciliation

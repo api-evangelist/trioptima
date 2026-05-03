@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/trioptima/blob/main/json-schema/trioptima-compression-cycle-schema.json",
+  "title": "Trioptima Compression Cycle",
+  "description": "Schema for a triReduce portfolio compression cycle",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique cycle identifier",
+      "examples": ["CYC-2024-IRS-001"]
+    },
+    "type": {
+      "type": "string",
+      "description": "Compression cycle type",
+      "enum": ["cleared", "bilateral"]
+    },
+    "assetClass": {
+      "type": "string",
+      "description": "Derivatives asset class",
+      "enum": ["IRS", "OIS", "CDS", "FX"]
+    },
+    "currency": {
+      "type": "string",
+      "description": "Primary currency (ISO 4217)",
+      "examples": ["USD", "EUR", "GBP", "JPY"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Current cycle lifecycle status",
+      "enum": ["open", "submission", "optimization", "completed", "cancelled"]
+    },
+    "submissionDeadline": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Deadline for trade and risk data submission"
+    },
+    "optimizationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when the compression optimization algorithm runs"
+    },
+    "settlementDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when terminations and new replacement trades are processed"
+    },
+    "participantCount": {
+      "type": "integer",
+      "description": "Number of firms participating in this cycle",
+      "minimum": 2
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the compression cycle"
+    }
+  },
+  "required": ["id", "type", "assetClass", "currency", "status"]
+}

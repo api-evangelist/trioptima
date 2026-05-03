@@ -1,0 +1,75 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/",
+    "trioptima": "https://osttra.com/vocab/trioptima#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "CompressionCycle": "trioptima:CompressionCycle",
+    "Trade": "trioptima:Trade",
+    "RiskData": "trioptima:RiskData",
+    "DeltaLadder": "trioptima:DeltaLadder",
+    "CompressionResults": "trioptima:CompressionResults",
+
+    "id": "@id",
+    "type": "@type",
+
+    "assetClass": "trioptima:assetClass",
+    "currency": "fibo:FBC/FinancialInstruments/FinancialInstruments/currency",
+    "status": "trioptima:cycleStatus",
+    "submissionDeadline": {
+      "@id": "trioptima:submissionDeadline",
+      "@type": "xsd:dateTime"
+    },
+    "optimizationDate": {
+      "@id": "trioptima:optimizationDate",
+      "@type": "xsd:date"
+    },
+    "settlementDate": {
+      "@id": "trioptima:settlementDate",
+      "@type": "xsd:date"
+    },
+    "participantCount": {
+      "@id": "trioptima:participantCount",
+      "@type": "xsd:integer"
+    },
+    "description": "schema:description",
+
+    "tradeId": "trioptima:tradeId",
+    "counterpartyId": "trioptima:counterpartyId",
+    "notional": {
+      "@id": "trioptima:notional",
+      "@type": "xsd:double"
+    },
+    "maturityDate": {
+      "@id": "trioptima:maturityDate",
+      "@type": "xsd:date"
+    },
+    "startDate": {
+      "@id": "trioptima:startDate",
+      "@type": "xsd:date"
+    },
+    "fixedRate": {
+      "@id": "trioptima:fixedRate",
+      "@type": "xsd:double"
+    },
+    "payReceive": "trioptima:payReceive",
+    "clearingHouse": "trioptima:clearingHouse",
+
+    "originalNotional": { "@id": "trioptima:originalNotional", "@type": "xsd:double" },
+    "compressedNotional": { "@id": "trioptima:compressedNotional", "@type": "xsd:double" },
+    "notionalReduction": { "@id": "trioptima:notionalReduction", "@type": "xsd:double" },
+    "reductionPercentage": { "@id": "trioptima:reductionPercentage", "@type": "xsd:double" },
+    "tradesTerminated": { "@id": "trioptima:tradesTerminated", "@type": "xsd:integer" },
+    "newTradesCreated": { "@id": "trioptima:newTradesCreated", "@type": "xsd:integer" },
+
+    "tenor": "trioptima:tenor",
+    "dv01": { "@id": "trioptima:dv01", "@type": "xsd:double" },
+    "tolerance": { "@id": "trioptima:tolerance", "@type": "xsd:double" },
+    "deltaLadder": {
+      "@id": "trioptima:deltaLadder",
+      "@container": "@list"
+    }
+  }
+}
