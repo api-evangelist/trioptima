@@ -65,6 +65,12 @@ apis:
       tracking, investigating, and resolving discrepancies. Over 1,500 firms use triResolve for bilateral and cleared
       portfolio reconciliation. Data submission via SFTP API file transfer or manual upload (QuickPort).
 common:
+  - type: Authentication
+    url: authentication/trioptima-authentication.yml
+  - type: OAuthScopes
+    url: scopes/trioptima-scopes.yml
+  - url: https://osttra.com/insights/
+    type: Blog
   - type: LinkedIn
     url: https://www.linkedin.com/company/trioptima
   - type: Website

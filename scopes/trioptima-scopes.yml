@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/trioptima-trireduce-api-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/trioptima-trireduce-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.trireduce.com/oauth/token
+scopes:
+- scope: read
+  description: Read-only access to cycles, trades, and results
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/trioptima-trireduce-api-openapi.yml
+- scope: write
+  description: Full access to submit trades, risk data, and confirmations
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/trioptima-trireduce-api-openapi.yml
