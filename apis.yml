@@ -65,6 +65,8 @@ apis:
       tracking, investigating, and resolving discrepancies. Over 1,500 firms use triResolve for bilateral and cleared
       portfolio reconciliation. Data submission via SFTP API file transfer or manual upload (QuickPort).
 common:
+  - type: AgenticAccess
+    url: agentic-access/trioptima-agentic-access.yml
   - type: DomainSecurity
     url: security/trioptima-domain-security.yml
   - type: Authentication
