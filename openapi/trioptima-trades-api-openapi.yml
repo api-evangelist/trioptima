@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: Trioptima triReduce Cycles Trades API
+  description: 'The triReduce API provides machine-to-machine access to TriOptima''s portfolio compression service for OTC derivatives. The API allows cycle participants to automate their participation in compression cycles, submit trade and risk data, and retrieve compression results and reports.
+
+    The API is available at both the rates (IRS/OIS) and credit derivatives services. Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided for initial development and testing; full access (GET and POST) is enabled on request for production use.
+
+    Full interactive documentation is available at /api/v1/doc after authenticating to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).'
+  version: '1'
+  contact:
+    name: TriOptima / OSTTRA Support
+    url: https://osttra.com
+    email: triReduce-support@trioptima.com
+  license:
+    name: Proprietary
+servers:
+- url: https://rates.trireduce.com/api/v1
+  description: triReduce Rates (Interest Rate Swaps / OIS)
+- url: https://credit.trireduce.com/api/v1
+  description: triReduce Credit (Credit Default Swaps)
+security:
+- oauth2: []
+tags:
+- name: Trades
+  description: Trade data submission and retrieval
+paths:
+  /cycles/{cycleId}/trades:
+    get:
+      operationId: listCycleTrades
+      summary: List Cycle Trades
+      description: Returns the list of trades submitted by the participant for a given compression cycle. Used to verify trade submission and review accepted trade population.
+      tags:
+      - Trades
+      parameters:
+      - name: cycleId
+        in: path
+        required: true
+        description: Unique identifier for the compression cycle
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of submitted trades for the cycle
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trade'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cycle not found
+    post:
+      operationId: submitCycleTrades
+      summary: Submit Trades for Cycle
+      description: Submits or replaces the participant's trade population for a compression cycle. Trade data includes notional, maturity, coupon, and other trade economics required for the compression algorithm. Full access required (not available on read-only API keys).
+      tags:
+      - Trades
+      parameters:
+      - name: cycleId
+        in: path
+        required: true
+        description: Unique identifier for the compression cycle
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Trade population for submission
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - trades
+              properties:
+                trades:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TradeSubmission'
+      responses:
+        '200':
+          description: Trades submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionResult'
+        '400':
+          description: Bad request — invalid trade data
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden — read-only access token cannot submit trades
+components:
+  schemas:
+    Trade:
+      type: object
+      description: A derivative trade in a compression cycle
+      properties:
+        tradeId:
+          type: string
+          description: Unique trade identifier (UTI or participant internal ID)
+        counterpartyId:
+          type: string
+          description: Counterparty LEI or identifier
+        notional:
+          type: number
+          format: double
+          description: Notional amount in the trade currency
+        currency:
+          type: string
+          description: Trade notional currency
+          example: USD
+        maturityDate:
+          type: string
+          format: date
+          description: Trade maturity date
+        startDate:
+          type: string
+          format: date
+          description: Trade effective start date
+        fixedRate:
+          type: number
+          format: double
+          description: Fixed coupon rate (for IRS)
+        payReceive:
+          type: string
+          enum:
+          - PAY
+          - RECEIVE
+          description: Whether the participant pays or receives the fixed rate
+        clearingHouse:
+          type: string
+          description: Clearing house (LCH, CME, Eurex, etc.)
+          example: LCH
+        status:
+          type: string
+          description: Trade status in the cycle
+          enum:
+          - submitted
+          - accepted
+          - rejected
+          - terminated
+    TradeSubmission:
+      type: object
+      description: Trade data for submission to a compression cycle
+      required:
+      - tradeId
+      - notional
+      - currency
+      - maturityDate
+      properties:
+        tradeId:
+          type: string
+          description: Unique trade identifier
+        counterpartyId:
+          type: string
+          description: Counterparty LEI
+        notional:
+          type: number
+          format: double
+        currency:
+          type: string
+        maturityDate:
+          type: string
+          format: date
+        startDate:
+          type: string
+          format: date
+        fixedRate:
+          type: number
+          format: double
+        payReceive:
+          type: string
+          enum:
+          - PAY
+          - RECEIVE
+        clearingHouse:
+          type: string
+    SubmissionResult:
+      type: object
+      description: Result of a data submission operation
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        recordsProcessed:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              tradeId:
+                type: string
+              errorCode:
+                type: string
+              errorMessage:
+                type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.trireduce.com/oauth/token
+          scopes:
+            read: Read-only access to cycles, trades, and results
+            write: Full access to submit trades, risk data, and confirmations
+externalDocs:
+  description: triReduce API Documentation
+  url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api

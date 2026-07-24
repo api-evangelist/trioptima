@@ -1,0 +1,221 @@
+openapi: 3.0.3
+info:
+  title: Trioptima triReduce Cycles Results API
+  description: 'The triReduce API provides machine-to-machine access to TriOptima''s portfolio compression service for OTC derivatives. The API allows cycle participants to automate their participation in compression cycles, submit trade and risk data, and retrieve compression results and reports.
+
+    The API is available at both the rates (IRS/OIS) and credit derivatives services. Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided for initial development and testing; full access (GET and POST) is enabled on request for production use.
+
+    Full interactive documentation is available at /api/v1/doc after authenticating to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).'
+  version: '1'
+  contact:
+    name: TriOptima / OSTTRA Support
+    url: https://osttra.com
+    email: triReduce-support@trioptima.com
+  license:
+    name: Proprietary
+servers:
+- url: https://rates.trireduce.com/api/v1
+  description: triReduce Rates (Interest Rate Swaps / OIS)
+- url: https://credit.trireduce.com/api/v1
+  description: triReduce Credit (Credit Default Swaps)
+security:
+- oauth2: []
+tags:
+- name: Results
+  description: Compression results and reports
+paths:
+  /cycles/{cycleId}/results:
+    get:
+      operationId: getCycleResults
+      summary: Get Cycle Results
+      description: Returns the compression results for a completed cycle, including the set of terminations and new replacement trades, notional reduction achieved, and summary statistics.
+      tags:
+      - Results
+      parameters:
+      - name: cycleId
+        in: path
+        required: true
+        description: Unique identifier for the compression cycle
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Compression results for the cycle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CycleResults'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cycle results not available yet or not found
+  /cycles/{cycleId}/results/confirm:
+    post:
+      operationId: confirmCycleResults
+      summary: Confirm Cycle Results
+      description: Confirms the participant's acceptance of the compression results for a cycle. This is required before terminations and new trades are processed. All participants must confirm before the cycle settles.
+      tags:
+      - Results
+      parameters:
+      - name: cycleId
+        in: path
+        required: true
+        description: Unique identifier for the compression cycle
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - confirmed
+              properties:
+                confirmed:
+                  type: boolean
+                  description: Set true to confirm, false to reject results
+                comment:
+                  type: string
+                  description: Optional comment explaining rejection
+      responses:
+        '200':
+          description: Confirmation recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionResult'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+components:
+  schemas:
+    CycleResults:
+      type: object
+      description: Results of a completed compression cycle
+      properties:
+        cycleId:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending_confirmation
+          - confirmed
+          - settled
+        summary:
+          type: object
+          properties:
+            originalNotional:
+              type: number
+              format: double
+              description: Total notional submitted
+            compressedNotional:
+              type: number
+              format: double
+              description: Residual notional after compression
+            notionalReduction:
+              type: number
+              format: double
+              description: Amount of notional eliminated
+            reductionPercentage:
+              type: number
+              format: double
+              description: Percentage of notional eliminated
+            tradesTerminated:
+              type: integer
+              description: Number of trades terminated
+            newTradesCreated:
+              type: integer
+              description: Number of replacement trades created
+        terminations:
+          type: array
+          description: Trades to be terminated
+          items:
+            $ref: '#/components/schemas/Trade'
+        newTrades:
+          type: array
+          description: Replacement trades created by the compression algorithm
+          items:
+            $ref: '#/components/schemas/Trade'
+    Trade:
+      type: object
+      description: A derivative trade in a compression cycle
+      properties:
+        tradeId:
+          type: string
+          description: Unique trade identifier (UTI or participant internal ID)
+        counterpartyId:
+          type: string
+          description: Counterparty LEI or identifier
+        notional:
+          type: number
+          format: double
+          description: Notional amount in the trade currency
+        currency:
+          type: string
+          description: Trade notional currency
+          example: USD
+        maturityDate:
+          type: string
+          format: date
+          description: Trade maturity date
+        startDate:
+          type: string
+          format: date
+          description: Trade effective start date
+        fixedRate:
+          type: number
+          format: double
+          description: Fixed coupon rate (for IRS)
+        payReceive:
+          type: string
+          enum:
+          - PAY
+          - RECEIVE
+          description: Whether the participant pays or receives the fixed rate
+        clearingHouse:
+          type: string
+          description: Clearing house (LCH, CME, Eurex, etc.)
+          example: LCH
+        status:
+          type: string
+          description: Trade status in the cycle
+          enum:
+          - submitted
+          - accepted
+          - rejected
+          - terminated
+    SubmissionResult:
+      type: object
+      description: Result of a data submission operation
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        recordsProcessed:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              tradeId:
+                type: string
+              errorCode:
+                type: string
+              errorMessage:
+                type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.trireduce.com/oauth/token
+          scopes:
+            read: Read-only access to cycles, trades, and results
+            write: Full access to submit trades, risk data, and confirmations
+externalDocs:
+  description: triReduce API Documentation
+  url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api

@@ -1,0 +1,163 @@
+openapi: 3.0.3
+info:
+  title: Trioptima triReduce Cycles API
+  description: 'The triReduce API provides machine-to-machine access to TriOptima''s portfolio compression service for OTC derivatives. The API allows cycle participants to automate their participation in compression cycles, submit trade and risk data, and retrieve compression results and reports.
+
+    The API is available at both the rates (IRS/OIS) and credit derivatives services. Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided for initial development and testing; full access (GET and POST) is enabled on request for production use.
+
+    Full interactive documentation is available at /api/v1/doc after authenticating to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).'
+  version: '1'
+  contact:
+    name: TriOptima / OSTTRA Support
+    url: https://osttra.com
+    email: triReduce-support@trioptima.com
+  license:
+    name: Proprietary
+servers:
+- url: https://rates.trireduce.com/api/v1
+  description: triReduce Rates (Interest Rate Swaps / OIS)
+- url: https://credit.trireduce.com/api/v1
+  description: triReduce Credit (Credit Default Swaps)
+security:
+- oauth2: []
+tags:
+- name: Cycles
+  description: Compression cycle discovery and management
+paths:
+  /cycles:
+    get:
+      operationId: listCycles
+      summary: List Compression Cycles
+      description: Returns a list of compression cycles available to the participant. Cycles represent scheduled multilateral compression runs. Participants can filter by status to see open, in-progress, or completed cycles.
+      tags:
+      - Cycles
+      parameters:
+      - name: status
+        in: query
+        required: false
+        description: Filter cycles by status
+        schema:
+          type: string
+          enum:
+          - open
+          - submission
+          - optimization
+          - completed
+          - cancelled
+      - name: type
+        in: query
+        required: false
+        description: Filter by cycle type
+        schema:
+          type: string
+          enum:
+          - cleared
+          - bilateral
+      responses:
+        '200':
+          description: List of available compression cycles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cycle'
+        '401':
+          description: Unauthorized — invalid or expired OAuth token
+        '403':
+          description: Forbidden — insufficient permissions for this resource
+  /cycles/{cycleId}:
+    get:
+      operationId: getCycle
+      summary: Get Cycle Details
+      description: Returns detailed information about a specific compression cycle, including its current status, submission deadlines, participating firms, and schedule.
+      tags:
+      - Cycles
+      parameters:
+      - name: cycleId
+        in: path
+        required: true
+        description: Unique identifier for the compression cycle
+        schema:
+          type: string
+        example: CYC-2024-IRS-001
+      responses:
+        '200':
+          description: Cycle details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cycle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cycle not found
+components:
+  schemas:
+    Cycle:
+      type: object
+      description: A triReduce compression cycle
+      properties:
+        id:
+          type: string
+          description: Unique cycle identifier
+          example: CYC-2024-IRS-001
+        type:
+          type: string
+          description: Compression cycle type
+          enum:
+          - cleared
+          - bilateral
+          example: cleared
+        assetClass:
+          type: string
+          description: Asset class for this cycle
+          enum:
+          - IRS
+          - OIS
+          - CDS
+          - FX
+          example: IRS
+        currency:
+          type: string
+          description: Primary currency of the cycle
+          example: USD
+        status:
+          type: string
+          description: Current cycle status
+          enum:
+          - open
+          - submission
+          - optimization
+          - completed
+          - cancelled
+        submissionDeadline:
+          type: string
+          format: date-time
+          description: Deadline for trade and risk data submission
+        optimizationDate:
+          type: string
+          format: date
+          description: Date when the compression algorithm runs
+        settlementDate:
+          type: string
+          format: date
+          description: Date when terminations and new trades are processed
+        participantCount:
+          type: integer
+          description: Number of participants registered for this cycle
+        description:
+          type: string
+          description: Human-readable description of the cycle
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.trireduce.com/oauth/token
+          scopes:
+            read: Read-only access to cycles, trades, and results
+            write: Full access to submit trades, risk data, and confirmations
+externalDocs:
+  description: triReduce API Documentation
+  url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api
