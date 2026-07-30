@@ -8,7 +8,20 @@ description: >-
   a comprehensive post-trade services platform. Trioptima's services help financial institutions reduce counterparty
   risk, optimize capital requirements, and meet regulatory obligations across interest rate, credit, FX, and equity
   derivatives.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/trioptima.png
 tags:
   - CME Group
   - Derivatives
@@ -22,48 +35,89 @@ created: '2026-05-03'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: trioptima:trireduce-api
-    name: Trioptima triReduce API
-    tags:
-      - Compression
-      - Derivatives
-      - Portfolio Optimization
-      - Risk Reduction
-    humanURL: https://osttra.com/services/optimisation/portfolio-compression/
-    baseURL: https://rates.trireduce.com
-    properties:
-      - url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api
-        type: Documentation
-      - url: openapi/trioptima-trireduce-api-openapi.yml
-        type: OpenAPI
-      - url: rules/trioptima-rules.yml
-        type: SpectralRules
-      - url: vocabulary/trioptima-vocabulary.yml
-        type: Vocabulary
-    description: >-
-      The triReduce API provides machine-to-machine access to TriOptima's portfolio compression cycles for OTC
-      derivatives. The API allows cycle participants to automate participation in compression cycles, submit trade and
-      risk data, and retrieve cycle results. Available for rates (IRS, OIS) and credit derivatives compression.
-      Authentication uses OAuth 2.0 with read-only access for development and full access for production. Documentation
-      available at https://rates.trireduce.com/api/v1/doc.
-  - aid: trioptima:triresolve
-    name: Trioptima triResolve Portfolio Reconciliation
-    tags:
-      - Collateral Management
-      - Derivatives
-      - Disputes
-      - Reconciliation
-      - Risk Management
-    humanURL: https://osttra.com/services/trade-lifecycle-services/portfolio-reconciliation/
-    baseURL: https://triResolve.com
-    properties:
-      - url: https://osttra.com/services/trade-lifecycle-services/portfolio-reconciliation/
-        type: Documentation
-    description: >-
-      Trioptima triResolve is a web-based portfolio reconciliation service for OTC derivatives. It normalizes trade
-      data, reconciles all fields using an algorithmic match engine, and provides break workflow for identifying,
-      tracking, investigating, and resolving discrepancies. Over 1,500 firms use triResolve for bilateral and cleared
-      portfolio reconciliation. Data submission via SFTP API file transfer or manual upload (QuickPort).
+- aid: trioptima:triresolve
+  name: Trioptima triResolve Portfolio Reconciliation
+  tags:
+  - Collateral Management
+  - Derivatives
+  - Disputes
+  - Reconciliation
+  - Risk Management
+  humanURL: https://osttra.com/services/trade-lifecycle-services/portfolio-reconciliation/
+  baseURL: https://triResolve.com
+  properties:
+  - url: https://osttra.com/services/trade-lifecycle-services/portfolio-reconciliation/
+    type: Documentation
+  description: >-
+    Trioptima triResolve is a web-based portfolio reconciliation service for OTC derivatives. It normalizes
+    trade data, reconciles all fields using an algorithmic match engine, and provides break workflow for
+    identifying, tracking, investigating, and resolving discrepancies. Over 1,500 firms use triResolve
+    for bilateral and cleared portfolio reconciliation. Data submission via SFTP API file transfer or
+    manual upload (QuickPort).
+- aid: trioptima:trioptima-cycles-api
+  name: Trioptima Cycles API
+  description: Compression cycle discovery and management
+  humanURL: https://osttra.com/services/optimisation/portfolio-compression/
+  baseURL: https://rates.trireduce.com
+  tags:
+  - Cycles
+  properties:
+  - type: OpenAPI
+    url: openapi/trioptima-cycles-api-openapi.yml
+  - type: Documentation
+    url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api
+  - type: SpectralRules
+    url: rules/trioptima-rules.yml
+  - type: Vocabulary
+    url: vocabulary/trioptima-vocabulary.yml
+- aid: trioptima:trioptima-results-api
+  name: Trioptima Results API
+  description: Compression results and reports
+  humanURL: https://osttra.com/services/optimisation/portfolio-compression/
+  baseURL: https://rates.trireduce.com
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/trioptima-results-api-openapi.yml
+  - type: Documentation
+    url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api
+  - type: SpectralRules
+    url: rules/trioptima-rules.yml
+  - type: Vocabulary
+    url: vocabulary/trioptima-vocabulary.yml
+- aid: trioptima:trioptima-risk-api
+  name: Trioptima Risk API
+  description: Risk data submission and delta ladder management
+  humanURL: https://osttra.com/services/optimisation/portfolio-compression/
+  baseURL: https://rates.trireduce.com
+  tags:
+  - Risk
+  properties:
+  - type: OpenAPI
+    url: openapi/trioptima-risk-api-openapi.yml
+  - type: Documentation
+    url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api
+  - type: SpectralRules
+    url: rules/trioptima-rules.yml
+  - type: Vocabulary
+    url: vocabulary/trioptima-vocabulary.yml
+- aid: trioptima:trioptima-trades-api
+  name: Trioptima Trades API
+  description: Trade data submission and retrieval
+  humanURL: https://osttra.com/services/optimisation/portfolio-compression/
+  baseURL: https://rates.trireduce.com
+  tags:
+  - Trades
+  properties:
+  - type: OpenAPI
+    url: openapi/trioptima-trades-api-openapi.yml
+  - type: Documentation
+    url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api
+  - type: SpectralRules
+    url: rules/trioptima-rules.yml
+  - type: Vocabulary
+    url: vocabulary/trioptima-vocabulary.yml
 common:
   - type: AgenticAccess
     url: agentic-access/trioptima-agentic-access.yml
