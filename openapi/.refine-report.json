@@ -1,0 +1,20 @@
+{
+  "provider": "trioptima",
+  "sources": [
+    "trioptima-cycles-api-openapi.yml",
+    "trioptima-results-api-openapi.yml",
+    "trioptima-risk-api-openapi.yml",
+    "trioptima-trades-api-openapi.yml"
+  ],
+  "outputs": [
+    "trioptima-cycles-api-openapi.yml",
+    "trioptima-results-api-openapi.yml",
+    "trioptima-risk-api-openapi.yml",
+    "trioptima-trades-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

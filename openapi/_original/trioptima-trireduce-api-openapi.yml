@@ -1,0 +1,608 @@
+openapi: 3.0.3
+info:
+  title: Trioptima triReduce API
+  description: >-
+    The triReduce API provides machine-to-machine access to TriOptima's portfolio
+    compression service for OTC derivatives. The API allows cycle participants to
+    automate their participation in compression cycles, submit trade and risk data,
+    and retrieve compression results and reports.
+
+    The API is available at both the rates (IRS/OIS) and credit derivatives services.
+    Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided
+    for initial development and testing; full access (GET and POST) is enabled on
+    request for production use.
+
+    Full interactive documentation is available at /api/v1/doc after authenticating
+    to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).
+  version: '1'
+  contact:
+    name: TriOptima / OSTTRA Support
+    url: https://osttra.com
+    email: triReduce-support@trioptima.com
+  license:
+    name: Proprietary
+externalDocs:
+  description: triReduce API Documentation
+  url: https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api
+servers:
+  - url: https://rates.trireduce.com/api/v1
+    description: triReduce Rates (Interest Rate Swaps / OIS)
+  - url: https://credit.trireduce.com/api/v1
+    description: triReduce Credit (Credit Default Swaps)
+security:
+  - oauth2: []
+tags:
+  - name: Cycles
+    description: Compression cycle discovery and management
+  - name: Trades
+    description: Trade data submission and retrieval
+  - name: Risk
+    description: Risk data submission and delta ladder management
+  - name: Results
+    description: Compression results and reports
+paths:
+  /cycles:
+    get:
+      operationId: listCycles
+      summary: List Compression Cycles
+      description: >-
+        Returns a list of compression cycles available to the participant.
+        Cycles represent scheduled multilateral compression runs. Participants
+        can filter by status to see open, in-progress, or completed cycles.
+      tags:
+        - Cycles
+      parameters:
+        - name: status
+          in: query
+          required: false
+          description: Filter cycles by status
+          schema:
+            type: string
+            enum:
+              - open
+              - submission
+              - optimization
+              - completed
+              - cancelled
+        - name: type
+          in: query
+          required: false
+          description: Filter by cycle type
+          schema:
+            type: string
+            enum:
+              - cleared
+              - bilateral
+      responses:
+        '200':
+          description: List of available compression cycles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cycle'
+        '401':
+          description: Unauthorized — invalid or expired OAuth token
+        '403':
+          description: Forbidden — insufficient permissions for this resource
+
+  /cycles/{cycleId}:
+    get:
+      operationId: getCycle
+      summary: Get Cycle Details
+      description: >-
+        Returns detailed information about a specific compression cycle,
+        including its current status, submission deadlines, participating firms,
+        and schedule.
+      tags:
+        - Cycles
+      parameters:
+        - name: cycleId
+          in: path
+          required: true
+          description: Unique identifier for the compression cycle
+          schema:
+            type: string
+          example: CYC-2024-IRS-001
+      responses:
+        '200':
+          description: Cycle details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cycle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cycle not found
+
+  /cycles/{cycleId}/trades:
+    get:
+      operationId: listCycleTrades
+      summary: List Cycle Trades
+      description: >-
+        Returns the list of trades submitted by the participant for a given
+        compression cycle. Used to verify trade submission and review accepted
+        trade population.
+      tags:
+        - Trades
+      parameters:
+        - name: cycleId
+          in: path
+          required: true
+          description: Unique identifier for the compression cycle
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of submitted trades for the cycle
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Trade'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cycle not found
+    post:
+      operationId: submitCycleTrades
+      summary: Submit Trades for Cycle
+      description: >-
+        Submits or replaces the participant's trade population for a compression
+        cycle. Trade data includes notional, maturity, coupon, and other
+        trade economics required for the compression algorithm. Full access
+        required (not available on read-only API keys).
+      tags:
+        - Trades
+      parameters:
+        - name: cycleId
+          in: path
+          required: true
+          description: Unique identifier for the compression cycle
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: Trade population for submission
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - trades
+              properties:
+                trades:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TradeSubmission'
+      responses:
+        '200':
+          description: Trades submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionResult'
+        '400':
+          description: Bad request — invalid trade data
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden — read-only access token cannot submit trades
+
+  /cycles/{cycleId}/risk:
+    get:
+      operationId: getCycleRisk
+      summary: Get Cycle Risk Data
+      description: >-
+        Returns the risk data (delta ladders) submitted by the participant
+        for a given compression cycle.
+      tags:
+        - Risk
+      parameters:
+        - name: cycleId
+          in: path
+          required: true
+          description: Unique identifier for the compression cycle
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Participant risk data for the cycle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskData'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cycle or risk data not found
+    post:
+      operationId: submitCycleRisk
+      summary: Submit Risk Data for Cycle
+      description: >-
+        Submits risk constraints (delta ladders, DV01 limits) for a compression
+        cycle. Risk data constrains the optimization algorithm to preserve the
+        participant's aggregate risk profile within specified tolerances.
+      tags:
+        - Risk
+      parameters:
+        - name: cycleId
+          in: path
+          required: true
+          description: Unique identifier for the compression cycle
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: Risk constraints for the compression cycle
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RiskSubmission'
+      responses:
+        '200':
+          description: Risk data submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionResult'
+        '400':
+          description: Bad request — invalid risk data
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden — read-only access
+
+  /cycles/{cycleId}/results:
+    get:
+      operationId: getCycleResults
+      summary: Get Cycle Results
+      description: >-
+        Returns the compression results for a completed cycle, including the
+        set of terminations and new replacement trades, notional reduction
+        achieved, and summary statistics.
+      tags:
+        - Results
+      parameters:
+        - name: cycleId
+          in: path
+          required: true
+          description: Unique identifier for the compression cycle
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Compression results for the cycle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CycleResults'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cycle results not available yet or not found
+
+  /cycles/{cycleId}/results/confirm:
+    post:
+      operationId: confirmCycleResults
+      summary: Confirm Cycle Results
+      description: >-
+        Confirms the participant's acceptance of the compression results for a
+        cycle. This is required before terminations and new trades are processed.
+        All participants must confirm before the cycle settles.
+      tags:
+        - Results
+      parameters:
+        - name: cycleId
+          in: path
+          required: true
+          description: Unique identifier for the compression cycle
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - confirmed
+              properties:
+                confirmed:
+                  type: boolean
+                  description: Set true to confirm, false to reject results
+                comment:
+                  type: string
+                  description: Optional comment explaining rejection
+      responses:
+        '200':
+          description: Confirmation recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmissionResult'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.trireduce.com/oauth/token
+          scopes:
+            read: Read-only access to cycles, trades, and results
+            write: Full access to submit trades, risk data, and confirmations
+
+  schemas:
+    Cycle:
+      type: object
+      description: A triReduce compression cycle
+      properties:
+        id:
+          type: string
+          description: Unique cycle identifier
+          example: CYC-2024-IRS-001
+        type:
+          type: string
+          description: Compression cycle type
+          enum:
+            - cleared
+            - bilateral
+          example: cleared
+        assetClass:
+          type: string
+          description: Asset class for this cycle
+          enum:
+            - IRS
+            - OIS
+            - CDS
+            - FX
+          example: IRS
+        currency:
+          type: string
+          description: Primary currency of the cycle
+          example: USD
+        status:
+          type: string
+          description: Current cycle status
+          enum:
+            - open
+            - submission
+            - optimization
+            - completed
+            - cancelled
+        submissionDeadline:
+          type: string
+          format: date-time
+          description: Deadline for trade and risk data submission
+        optimizationDate:
+          type: string
+          format: date
+          description: Date when the compression algorithm runs
+        settlementDate:
+          type: string
+          format: date
+          description: Date when terminations and new trades are processed
+        participantCount:
+          type: integer
+          description: Number of participants registered for this cycle
+        description:
+          type: string
+          description: Human-readable description of the cycle
+
+    Trade:
+      type: object
+      description: A derivative trade in a compression cycle
+      properties:
+        tradeId:
+          type: string
+          description: Unique trade identifier (UTI or participant internal ID)
+        counterpartyId:
+          type: string
+          description: Counterparty LEI or identifier
+        notional:
+          type: number
+          format: double
+          description: Notional amount in the trade currency
+        currency:
+          type: string
+          description: Trade notional currency
+          example: USD
+        maturityDate:
+          type: string
+          format: date
+          description: Trade maturity date
+        startDate:
+          type: string
+          format: date
+          description: Trade effective start date
+        fixedRate:
+          type: number
+          format: double
+          description: Fixed coupon rate (for IRS)
+        payReceive:
+          type: string
+          enum:
+            - PAY
+            - RECEIVE
+          description: Whether the participant pays or receives the fixed rate
+        clearingHouse:
+          type: string
+          description: Clearing house (LCH, CME, Eurex, etc.)
+          example: LCH
+        status:
+          type: string
+          description: Trade status in the cycle
+          enum:
+            - submitted
+            - accepted
+            - rejected
+            - terminated
+
+    TradeSubmission:
+      type: object
+      description: Trade data for submission to a compression cycle
+      required:
+        - tradeId
+        - notional
+        - currency
+        - maturityDate
+      properties:
+        tradeId:
+          type: string
+          description: Unique trade identifier
+        counterpartyId:
+          type: string
+          description: Counterparty LEI
+        notional:
+          type: number
+          format: double
+        currency:
+          type: string
+        maturityDate:
+          type: string
+          format: date
+        startDate:
+          type: string
+          format: date
+        fixedRate:
+          type: number
+          format: double
+        payReceive:
+          type: string
+          enum:
+            - PAY
+            - RECEIVE
+        clearingHouse:
+          type: string
+
+    RiskData:
+      type: object
+      description: Risk constraints submitted by a participant
+      properties:
+        cycleId:
+          type: string
+        participantId:
+          type: string
+        currency:
+          type: string
+        deltaLadder:
+          type: array
+          description: DV01 risk by tenor bucket
+          items:
+            type: object
+            properties:
+              tenor:
+                type: string
+                description: Tenor bucket (e.g., 1Y, 2Y, 5Y, 10Y, 30Y)
+                example: 5Y
+              dv01:
+                type: number
+                format: double
+                description: Dollar value of a basis point for this tenor
+              tolerance:
+                type: number
+                format: double
+                description: Allowed DV01 change after compression (fraction of original)
+
+    RiskSubmission:
+      type: object
+      required:
+        - currency
+        - deltaLadder
+      properties:
+        currency:
+          type: string
+        deltaLadder:
+          type: array
+          items:
+            type: object
+            required:
+              - tenor
+              - dv01
+            properties:
+              tenor:
+                type: string
+              dv01:
+                type: number
+                format: double
+              tolerance:
+                type: number
+                format: double
+
+    CycleResults:
+      type: object
+      description: Results of a completed compression cycle
+      properties:
+        cycleId:
+          type: string
+        status:
+          type: string
+          enum:
+            - pending_confirmation
+            - confirmed
+            - settled
+        summary:
+          type: object
+          properties:
+            originalNotional:
+              type: number
+              format: double
+              description: Total notional submitted
+            compressedNotional:
+              type: number
+              format: double
+              description: Residual notional after compression
+            notionalReduction:
+              type: number
+              format: double
+              description: Amount of notional eliminated
+            reductionPercentage:
+              type: number
+              format: double
+              description: Percentage of notional eliminated
+            tradesTerminated:
+              type: integer
+              description: Number of trades terminated
+            newTradesCreated:
+              type: integer
+              description: Number of replacement trades created
+        terminations:
+          type: array
+          description: Trades to be terminated
+          items:
+            $ref: '#/components/schemas/Trade'
+        newTrades:
+          type: array
+          description: Replacement trades created by the compression algorithm
+          items:
+            $ref: '#/components/schemas/Trade'
+
+    SubmissionResult:
+      type: object
+      description: Result of a data submission operation
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        recordsProcessed:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              tradeId:
+                type: string
+              errorCode:
+                type: string
+              errorMessage:
+                type: string
