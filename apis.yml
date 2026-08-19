@@ -33,7 +33,7 @@ tags:
   - Risk Management
 created: '2026-05-03'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: trioptima:triresolve
   name: Trioptima triResolve Portfolio Reconciliation
