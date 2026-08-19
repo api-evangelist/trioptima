@@ -1,0 +1,482 @@
+{
+  "item": [
+    {
+      "id": "2cc72422-03c8-4355-9886-20aeb985b111",
+      "name": "Results",
+      "description": {
+        "content": "Compression results and reports",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9c8124c7-4e20-43e6-915e-b475b1d447f2",
+          "name": "Get Cycle Results",
+          "request": {
+            "name": "Get Cycle Results",
+            "description": {
+              "content": "Returns the compression results for a completed cycle, including the set of terminations and new replacement trades, notional reduction achieved, and summary statistics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cycles",
+                ":cycleId",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cycleId",
+                  "description": "(Required) Unique identifier for the compression cycle"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91a74dae-41b7-40ad-8a79-5b557ae10b2f",
+              "name": "Compression results for the cycle",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cycleId\": \"string\",\n  \"status\": \"pending_confirmation\",\n  \"summary\": {\n    \"originalNotional\": 546.5057867826151,\n    \"compressedNotional\": 7360.475521228534,\n    \"notionalReduction\": 9472.076063643108,\n    \"reductionPercentage\": 183.10610078025368,\n    \"tradesTerminated\": 9161,\n    \"newTradesCreated\": 8278\n  },\n  \"terminations\": [\n    {\n      \"tradeId\": \"string\",\n      \"counterpartyId\": \"string\",\n      \"notional\": 3227.121892900158,\n      \"currency\": \"USD\",\n      \"maturityDate\": \"2024-09-20\",\n      \"startDate\": \"2014-01-17\",\n      \"fixedRate\": 1308.0132437379343,\n      \"payReceive\": \"RECEIVE\",\n      \"clearingHouse\": \"LCH\",\n      \"status\": \"accepted\"\n    },\n    {\n      \"tradeId\": \"string\",\n      \"counterpartyId\": \"string\",\n      \"notional\": 1549.7062535753957,\n      \"currency\": \"USD\",\n      \"maturityDate\": \"2016-07-24\",\n      \"startDate\": \"2022-10-13\",\n      \"fixedRate\": 4912.822410476977,\n      \"payReceive\": \"PAY\",\n      \"clearingHouse\": \"LCH\",\n      \"status\": \"accepted\"\n    }\n  ],\n  \"newTrades\": [\n    {\n      \"tradeId\": \"string\",\n      \"counterpartyId\": \"string\",\n      \"notional\": 891.1442262410418,\n      \"currency\": \"USD\",\n      \"maturityDate\": \"2007-02-03\",\n      \"startDate\": \"1959-10-16\",\n      \"fixedRate\": 7450.928406474027,\n      \"payReceive\": \"RECEIVE\",\n      \"clearingHouse\": \"LCH\",\n      \"status\": \"rejected\"\n    },\n    {\n      \"tradeId\": \"string\",\n      \"counterpartyId\": \"string\",\n      \"notional\": 936.347878227054,\n      \"currency\": \"USD\",\n      \"maturityDate\": \"2020-12-31\",\n      \"startDate\": \"1956-12-28\",\n      \"fixedRate\": 2704.7081215026938,\n      \"payReceive\": \"RECEIVE\",\n      \"clearingHouse\": \"LCH\",\n      \"status\": \"accepted\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0764d32-f9ca-4cea-b9ac-d4e9572bcf64",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5f2a8c51-dc09-463d-bfb1-3f74972da7aa",
+              "name": "Cycle results not available yet or not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f8e4315-00fe-4312-9d5c-f99ed0e69b52",
+          "name": "Confirm Cycle Results",
+          "request": {
+            "name": "Confirm Cycle Results",
+            "description": {
+              "content": "Confirms the participant's acceptance of the compression results for a cycle. This is required before terminations and new trades are processed. All participants must confirm before the cycle settles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cycles",
+                ":cycleId",
+                "results",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cycleId",
+                  "description": "(Required) Unique identifier for the compression cycle"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"confirmed\": \"<boolean>\",\n  \"comment\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "219062c9-eeba-4790-b244-05e87ca85597",
+              "name": "Confirmation recorded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "results",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confirmed\": \"<boolean>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"message\": \"string\",\n  \"recordsProcessed\": 6280,\n  \"errors\": [\n    {\n      \"tradeId\": \"string\",\n      \"errorCode\": \"string\",\n      \"errorMessage\": \"string\"\n    },\n    {\n      \"tradeId\": \"string\",\n      \"errorCode\": \"string\",\n      \"errorMessage\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f8afe40-97b5-49f7-a708-d22debc171f1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "results",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confirmed\": \"<boolean>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "418493d2-ddd2-4c94-b7f4-615111dbb7eb",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "results",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confirmed\": \"<boolean>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rates.trireduce.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.trireduce.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fbf68283-983e-4116-936e-cb100d300b36",
+    "name": "Trioptima triReduce Cycles Results API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The triReduce API provides machine-to-machine access to TriOptima's portfolio compression service for OTC derivatives. The API allows cycle participants to automate their participation in compression cycles, submit trade and risk data, and retrieve compression results and reports.\nThe API is available at both the rates (IRS/OIS) and credit derivatives services. Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided for initial development and testing; full access (GET and POST) is enabled on request for production use.\nFull interactive documentation is available at /api/v1/doc after authenticating to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).\n\nContact Support:\n Name: TriOptima / OSTTRA Support\n Email: triReduce-support@trioptima.com",
+      "type": "text/plain"
+    }
+  }
+}

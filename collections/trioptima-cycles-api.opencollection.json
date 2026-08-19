@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trioptima triReduce Cycles API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.trireduce.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cycles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Compression Cycles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rates.trireduce.com/api/v1/cycles",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter cycles by status"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by cycle type"
+              }
+            ]
+          },
+          "docs": "Returns a list of compression cycles available to the participant. Cycles represent scheduled multilateral compression runs. Participants can filter by status to see open, in-progress, or completed cycles."
+        },
+        {
+          "info": {
+            "name": "Get Cycle Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rates.trireduce.com/api/v1/cycles/:cycleId",
+            "params": [
+              {
+                "name": "cycleId",
+                "value": "CYC-2024-IRS-001",
+                "type": "path",
+                "description": "Unique identifier for the compression cycle"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a specific compression cycle, including its current status, submission deadlines, participating firms, and schedule."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

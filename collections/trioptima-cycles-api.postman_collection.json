@@ -1,0 +1,437 @@
+{
+  "item": [
+    {
+      "id": "2a50665d-862d-4c86-85dd-40384e97bfb1",
+      "name": "Cycles",
+      "description": {
+        "content": "Compression cycle discovery and management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "030d4008-90ce-4c66-b4ee-1858a3e1571b",
+          "name": "List Compression Cycles",
+          "request": {
+            "name": "List Compression Cycles",
+            "description": {
+              "content": "Returns a list of compression cycles available to the participant. Cycles represent scheduled multilateral compression runs. Participants can filter by status to see open, in-progress, or completed cycles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cycles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter cycles by status"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by cycle type"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92b739c6-3e0e-475f-a9f9-709b72664b1b",
+              "name": "List of available compression cycles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"CYC-2024-IRS-001\",\n    \"type\": \"cleared\",\n    \"assetClass\": \"IRS\",\n    \"currency\": \"USD\",\n    \"status\": \"open\",\n    \"submissionDeadline\": \"1996-11-09T15:12:54.570Z\",\n    \"optimizationDate\": \"1951-10-20\",\n    \"settlementDate\": \"1989-10-06\",\n    \"participantCount\": 5604,\n    \"description\": \"string\"\n  },\n  {\n    \"id\": \"CYC-2024-IRS-001\",\n    \"type\": \"cleared\",\n    \"assetClass\": \"IRS\",\n    \"currency\": \"USD\",\n    \"status\": \"optimization\",\n    \"submissionDeadline\": \"1972-12-23T10:05:55.306Z\",\n    \"optimizationDate\": \"1950-11-30\",\n    \"settlementDate\": \"1997-01-07\",\n    \"participantCount\": 7808,\n    \"description\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd69f0b0-3809-400d-8bac-bbc928cea8b1",
+              "name": "Unauthorized — invalid or expired OAuth token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f1db8196-364f-4074-bd09-146ad3659a0e",
+              "name": "Forbidden — insufficient permissions for this resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d97c5c8-f8a9-425a-a018-54d80a87923a",
+          "name": "Get Cycle Details",
+          "request": {
+            "name": "Get Cycle Details",
+            "description": {
+              "content": "Returns detailed information about a specific compression cycle, including its current status, submission deadlines, participating firms, and schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cycles",
+                ":cycleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cycleId",
+                  "description": "(Required) Unique identifier for the compression cycle"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50ac404c-00b3-4589-8070-a27e6d27e36f",
+              "name": "Cycle details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"CYC-2024-IRS-001\",\n  \"type\": \"cleared\",\n  \"assetClass\": \"IRS\",\n  \"currency\": \"USD\",\n  \"status\": \"open\",\n  \"submissionDeadline\": \"1966-05-16T17:14:54.783Z\",\n  \"optimizationDate\": \"1948-07-12\",\n  \"settlementDate\": \"1990-01-03\",\n  \"participantCount\": 7672,\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cb3df99-e41c-4b7a-b2ae-f402ed80fc13",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "48f54a13-68ef-42c0-ab3b-314d725d7af5",
+              "name": "Cycle not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rates.trireduce.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.trireduce.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7bb875c6-c791-44b6-a221-741a92126b43",
+    "name": "Trioptima triReduce Cycles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The triReduce API provides machine-to-machine access to TriOptima's portfolio compression service for OTC derivatives. The API allows cycle participants to automate their participation in compression cycles, submit trade and risk data, and retrieve compression results and reports.\nThe API is available at both the rates (IRS/OIS) and credit derivatives services. Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided for initial development and testing; full access (GET and POST) is enabled on request for production use.\nFull interactive documentation is available at /api/v1/doc after authenticating to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).\n\nContact Support:\n Name: TriOptima / OSTTRA Support\n Email: triReduce-support@trioptima.com",
+      "type": "text/plain"
+    }
+  }
+}

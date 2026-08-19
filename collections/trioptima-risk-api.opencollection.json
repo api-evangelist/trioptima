@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trioptima triReduce Cycles Risk API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.trireduce.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Risk",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Cycle Risk Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rates.trireduce.com/api/v1/cycles/:cycleId/risk",
+            "params": [
+              {
+                "name": "cycleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the compression cycle"
+              }
+            ]
+          },
+          "docs": "Returns the risk data (delta ladders) submitted by the participant for a given compression cycle."
+        },
+        {
+          "info": {
+            "name": "Submit Risk Data for Cycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rates.trireduce.com/api/v1/cycles/:cycleId/risk",
+            "params": [
+              {
+                "name": "cycleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the compression cycle"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits risk constraints (delta ladders, DV01 limits) for a compression cycle. Risk data constrains the optimization algorithm to preserve the participant's aggregate risk profile within specified tolerances."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,535 @@
+{
+  "item": [
+    {
+      "id": "d1b8cbb7-e7e4-4648-834f-0f2fc8245339",
+      "name": "Risk",
+      "description": {
+        "content": "Risk data submission and delta ladder management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3f0fcce4-f014-4556-b44e-0b60b5c092bf",
+          "name": "Get Cycle Risk Data",
+          "request": {
+            "name": "Get Cycle Risk Data",
+            "description": {
+              "content": "Returns the risk data (delta ladders) submitted by the participant for a given compression cycle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cycles",
+                ":cycleId",
+                "risk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cycleId",
+                  "description": "(Required) Unique identifier for the compression cycle"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "303508f6-e8b3-4453-b560-7e92b16c163a",
+              "name": "Participant risk data for the cycle",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "risk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cycleId\": \"string\",\n  \"participantId\": \"string\",\n  \"currency\": \"string\",\n  \"deltaLadder\": [\n    {\n      \"tenor\": \"5Y\",\n      \"dv01\": 6160.702106486117,\n      \"tolerance\": 6225.065338435696\n    },\n    {\n      \"tenor\": \"5Y\",\n      \"dv01\": 6295.882421396104,\n      \"tolerance\": 1473.2885148961716\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bbfd8bc-ec3e-4799-b430-e4c428e7fd4e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "risk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e92a2949-d41e-48ab-a2ba-86b575ec3442",
+              "name": "Cycle or risk data not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "risk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c7cdba7-52aa-4805-aeba-0d4ac5da3e85",
+          "name": "Submit Risk Data for Cycle",
+          "request": {
+            "name": "Submit Risk Data for Cycle",
+            "description": {
+              "content": "Submits risk constraints (delta ladders, DV01 limits) for a compression cycle. Risk data constrains the optimization algorithm to preserve the participant's aggregate risk profile within specified tolerances.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cycles",
+                ":cycleId",
+                "risk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cycleId",
+                  "description": "(Required) Unique identifier for the compression cycle"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currency\": \"<string>\",\n  \"deltaLadder\": [\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    },\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dbc8f084-1cd9-4ce4-a35c-7752bb0d30a2",
+              "name": "Risk data submitted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "risk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"deltaLadder\": [\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    },\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\",\n  \"recordsProcessed\": 6407,\n  \"errors\": [\n    {\n      \"tradeId\": \"string\",\n      \"errorCode\": \"string\",\n      \"errorMessage\": \"string\"\n    },\n    {\n      \"tradeId\": \"string\",\n      \"errorCode\": \"string\",\n      \"errorMessage\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b31bd66e-e07d-4ca4-be52-2fcff0337e9e",
+              "name": "Bad request — invalid risk data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "risk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"deltaLadder\": [\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    },\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a58ebb00-0872-4093-ace2-f486afc146c8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "risk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"deltaLadder\": [\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    },\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7e3f78de-5a81-450f-9ce4-50c217746d61",
+              "name": "Forbidden — read-only access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cycles",
+                    ":cycleId",
+                    "risk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cycleId",
+                      "description": "(Required) Unique identifier for the compression cycle"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"deltaLadder\": [\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    },\n    {\n      \"tenor\": \"<string>\",\n      \"dv01\": \"<double>\",\n      \"tolerance\": \"<double>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://rates.trireduce.com/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.trireduce.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "412f8a87-144c-45fb-9c45-48eb113d02f5",
+    "name": "Trioptima triReduce Cycles Risk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The triReduce API provides machine-to-machine access to TriOptima's portfolio compression service for OTC derivatives. The API allows cycle participants to automate their participation in compression cycles, submit trade and risk data, and retrieve compression results and reports.\nThe API is available at both the rates (IRS/OIS) and credit derivatives services. Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided for initial development and testing; full access (GET and POST) is enabled on request for production use.\nFull interactive documentation is available at /api/v1/doc after authenticating to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).\n\nContact Support:\n Name: TriOptima / OSTTRA Support\n Email: triReduce-support@trioptima.com",
+      "type": "text/plain"
+    }
+  }
+}

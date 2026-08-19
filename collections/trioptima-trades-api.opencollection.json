@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trioptima triReduce Cycles Trades API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.trireduce.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trades",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Cycle Trades",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://rates.trireduce.com/api/v1/cycles/:cycleId/trades",
+            "params": [
+              {
+                "name": "cycleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the compression cycle"
+              }
+            ]
+          },
+          "docs": "Returns the list of trades submitted by the participant for a given compression cycle. Used to verify trade submission and review accepted trade population."
+        },
+        {
+          "info": {
+            "name": "Submit Trades for Cycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://rates.trireduce.com/api/v1/cycles/:cycleId/trades",
+            "params": [
+              {
+                "name": "cycleId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the compression cycle"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits or replaces the participant's trade population for a compression cycle. Trade data includes notional, maturity, coupon, and other trade economics required for the compression algorithm. Full access required (not available on read-only API keys)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
