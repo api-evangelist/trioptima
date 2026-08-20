@@ -25,6 +25,15 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/trioptima.
 tags:
   - CME Group
   - Derivatives
+  - Financial-Services
+  - OSTTRA
+  - Portfolio Compression
+  - Post-Trade Services
+  - Reconciliation
+  - Risk Management
+tags_raw:
+  - CME Group
+  - Derivatives
   - Financial Services
   - OSTTRA
   - Portfolio Compression
