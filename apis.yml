@@ -139,6 +139,9 @@ apis:
   - type: Vocabulary
     url: vocabulary/trioptima-vocabulary.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/trioptima-capability-edges.yml
+    name: Trioptima Business Capability Map
   - type: AgenticAccess
     url: agentic-access/trioptima-agentic-access.yml
   - type: DomainSecurity

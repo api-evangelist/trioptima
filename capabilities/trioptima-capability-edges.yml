@@ -1,0 +1,44 @@
+slug: trioptima
+provider: Trioptima
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Cycles
+  spec_file: trioptima-cycles-api-openapi.yml
+  capability_id: BC-1380
+  capability_id_l1: BC-1380
+  capability_name: Capital Markets Operations Management
+  confidence: 0.7
+  evidence: GET /cycles  listCycles  List Compression Cycles; "TriOptima's portfolio compression service
+    for OTC derivatives"
+  reason: Post-trade OTC derivatives portfolio compression cycle administration sits in capital markets
+    operations; no single listed L2 names compression, so L1 only.
+- tag: Results
+  spec_file: trioptima-results-api-openapi.yml
+  capability_id: BC-1380
+  capability_id_l1: BC-1380
+  capability_name: Capital Markets Operations Management
+  confidence: 0.7
+  evidence: 'POST /cycles/{cycleId}/results/confirm  confirmCycleResults  Confirm Cycle Results; schemas:
+    CycleResults, Trade'
+  reason: Retrieval and confirmation of compression cycle outcomes (resulting trades) is post-trade operations
+    processing; L2 granularity not clearly evidenced.
+- tag: Trades
+  spec_file: trioptima-trades-api-openapi.yml
+  capability_id: BC-1380
+  capability_id_l1: BC-1380
+  capability_name: Capital Markets Operations Management
+  confidence: 0.7
+  evidence: 'POST /cycles/{cycleId}/trades  submitCycleTrades  Submit Trades for Cycle; schemas: TradeSubmission'
+  reason: Submission of trade populations into an OTC derivatives compression cycle is post-trade capital
+    markets operations; specific L2 not clearly named.
