@@ -8,6 +8,17 @@ description: >-
   a comprehensive post-trade services platform. Trioptima's services help financial institutions reduce counterparty
   risk, optimize capital requirements, and meet regulatory obligations across interest rate, credit, FX, and equity
   derivatives.
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
