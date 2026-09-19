@@ -128,6 +128,8 @@ apis:
   humanURL: https://osttra.com/services/optimisation/portfolio-compression/
   baseURL: https://rates.trireduce.com
   tags:
+  - Trade
+  tags_raw:
   - Trades
   properties:
   - type: OpenAPI
