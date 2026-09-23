@@ -1,11 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Trioptima triReduce Cycles API
-  description: 'The triReduce API provides machine-to-machine access to TriOptima''s portfolio compression service for OTC derivatives. The API allows cycle participants to automate their participation in compression cycles, submit trade and risk data, and retrieve compression results and reports.
-
-    The API is available at both the rates (IRS/OIS) and credit derivatives services. Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided for initial development and testing; full access (GET and POST) is enabled on request for production use.
-
-    Full interactive documentation is available at /api/v1/doc after authenticating to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).'
+  description: The triReduce API provides machine-to-machine access to TriOptima's portfolio compression service for OTC derivatives.
   version: '1'
   contact:
     name: TriOptima / OSTTRA Support

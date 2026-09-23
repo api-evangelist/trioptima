@@ -1,11 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Trioptima triReduce Cycles Trades API
-  description: 'The triReduce API provides machine-to-machine access to TriOptima''s portfolio compression service for OTC derivatives. The API allows cycle participants to automate their participation in compression cycles, submit trade and risk data, and retrieve compression results and reports.
-
-    The API is available at both the rates (IRS/OIS) and credit derivatives services. Authentication uses OAuth 2.0 tokens. Read-only access (GET only) is provided for initial development and testing; full access (GET and POST) is enabled on request for production use.
-
-    Full interactive documentation is available at /api/v1/doc after authenticating to the relevant triReduce service (e.g., https://rates.trireduce.com/api/v1/doc).'
+  title: Trioptima triReduce Trades API
+  description: The triReduce API provides machine-to-machine access to TriOptima's portfolio compression service for OTC derivatives.
   version: '1'
   contact:
     name: TriOptima / OSTTRA Support
@@ -93,6 +89,42 @@ paths:
           description: Forbidden — read-only access token cannot submit trades
 components:
   schemas:
+    TradeSubmission:
+      type: object
+      description: Trade data for submission to a compression cycle
+      required:
+      - tradeId
+      - notional
+      - currency
+      - maturityDate
+      properties:
+        tradeId:
+          type: string
+          description: Unique trade identifier
+        counterpartyId:
+          type: string
+          description: Counterparty LEI
+        notional:
+          type: number
+          format: double
+        currency:
+          type: string
+        maturityDate:
+          type: string
+          format: date
+        startDate:
+          type: string
+          format: date
+        fixedRate:
+          type: number
+          format: double
+        payReceive:
+          type: string
+          enum:
+          - PAY
+          - RECEIVE
+        clearingHouse:
+          type: string
     Trade:
       type: object
       description: A derivative trade in a compression cycle
@@ -141,42 +173,6 @@ components:
           - accepted
           - rejected
           - terminated
-    TradeSubmission:
-      type: object
-      description: Trade data for submission to a compression cycle
-      required:
-      - tradeId
-      - notional
-      - currency
-      - maturityDate
-      properties:
-        tradeId:
-          type: string
-          description: Unique trade identifier
-        counterpartyId:
-          type: string
-          description: Counterparty LEI
-        notional:
-          type: number
-          format: double
-        currency:
-          type: string
-        maturityDate:
-          type: string
-          format: date
-        startDate:
-          type: string
-          format: date
-        fixedRate:
-          type: number
-          format: double
-        payReceive:
-          type: string
-          enum:
-          - PAY
-          - RECEIVE
-        clearingHouse:
-          type: string
     SubmissionResult:
       type: object
       description: Result of a data submission operation

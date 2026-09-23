@@ -1,10 +1,7 @@
 {
   "provider": "trioptima",
   "sources": [
-    "trioptima-cycles-api-openapi.yml",
-    "trioptima-results-api-openapi.yml",
-    "trioptima-risk-api-openapi.yml",
-    "trioptima-trades-api-openapi.yml"
+    "_original/trioptima-trireduce-api-openapi.yml"
   ],
   "outputs": [
     "trioptima-cycles-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "trioptima-trireduce-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "trioptima-cycles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trioptima-results-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trioptima-risk-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "trioptima-trades-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
