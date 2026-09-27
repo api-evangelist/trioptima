@@ -36,7 +36,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/trioptima.
 tags:
   - CME Group
   - Derivatives
-  - Financial-Services
+  - Financial Services
   - OSTTRA
   - Portfolio Compression
   - Post-Trade Services
@@ -51,6 +51,7 @@ tags_raw:
   - Post-Trade Services
   - Reconciliation
   - Risk Management
+  - Financial-Services
 created: '2026-05-03'
 modified: '2026-05-19'
 specificationVersion: '0.23'
@@ -112,6 +113,8 @@ apis:
   humanURL: https://osttra.com/services/optimisation/portfolio-compression/
   baseURL: https://rates.trireduce.com
   tags:
+  - Risk Management
+  tags_raw:
   - Risk
   properties:
   - type: OpenAPI

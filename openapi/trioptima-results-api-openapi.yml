@@ -87,53 +87,6 @@ paths:
           description: Forbidden
 components:
   schemas:
-    CycleResults:
-      type: object
-      description: Results of a completed compression cycle
-      properties:
-        cycleId:
-          type: string
-        status:
-          type: string
-          enum:
-          - pending_confirmation
-          - confirmed
-          - settled
-        summary:
-          type: object
-          properties:
-            originalNotional:
-              type: number
-              format: double
-              description: Total notional submitted
-            compressedNotional:
-              type: number
-              format: double
-              description: Residual notional after compression
-            notionalReduction:
-              type: number
-              format: double
-              description: Amount of notional eliminated
-            reductionPercentage:
-              type: number
-              format: double
-              description: Percentage of notional eliminated
-            tradesTerminated:
-              type: integer
-              description: Number of trades terminated
-            newTradesCreated:
-              type: integer
-              description: Number of replacement trades created
-        terminations:
-          type: array
-          description: Trades to be terminated
-          items:
-            $ref: '#/components/schemas/Trade'
-        newTrades:
-          type: array
-          description: Replacement trades created by the compression algorithm
-          items:
-            $ref: '#/components/schemas/Trade'
     Trade:
       type: object
       description: A derivative trade in a compression cycle
@@ -203,6 +156,53 @@ components:
                 type: string
               errorMessage:
                 type: string
+    CycleResults:
+      type: object
+      description: Results of a completed compression cycle
+      properties:
+        cycleId:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending_confirmation
+          - confirmed
+          - settled
+        summary:
+          type: object
+          properties:
+            originalNotional:
+              type: number
+              format: double
+              description: Total notional submitted
+            compressedNotional:
+              type: number
+              format: double
+              description: Residual notional after compression
+            notionalReduction:
+              type: number
+              format: double
+              description: Amount of notional eliminated
+            reductionPercentage:
+              type: number
+              format: double
+              description: Percentage of notional eliminated
+            tradesTerminated:
+              type: integer
+              description: Number of trades terminated
+            newTradesCreated:
+              type: integer
+              description: Number of replacement trades created
+        terminations:
+          type: array
+          description: Trades to be terminated
+          items:
+            $ref: '#/components/schemas/Trade'
+        newTrades:
+          type: array
+          description: Replacement trades created by the compression algorithm
+          items:
+            $ref: '#/components/schemas/Trade'
   securitySchemes:
     oauth2:
       type: oauth2
