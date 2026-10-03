@@ -89,6 +89,42 @@ paths:
           description: Forbidden — read-only access token cannot submit trades
 components:
   schemas:
+    TradeSubmission:
+      type: object
+      description: Trade data for submission to a compression cycle
+      required:
+      - tradeId
+      - notional
+      - currency
+      - maturityDate
+      properties:
+        tradeId:
+          type: string
+          description: Unique trade identifier
+        counterpartyId:
+          type: string
+          description: Counterparty LEI
+        notional:
+          type: number
+          format: double
+        currency:
+          type: string
+        maturityDate:
+          type: string
+          format: date
+        startDate:
+          type: string
+          format: date
+        fixedRate:
+          type: number
+          format: double
+        payReceive:
+          type: string
+          enum:
+          - PAY
+          - RECEIVE
+        clearingHouse:
+          type: string
     Trade:
       type: object
       description: A derivative trade in a compression cycle
@@ -137,42 +173,6 @@ components:
           - accepted
           - rejected
           - terminated
-    TradeSubmission:
-      type: object
-      description: Trade data for submission to a compression cycle
-      required:
-      - tradeId
-      - notional
-      - currency
-      - maturityDate
-      properties:
-        tradeId:
-          type: string
-          description: Unique trade identifier
-        counterpartyId:
-          type: string
-          description: Counterparty LEI
-        notional:
-          type: number
-          format: double
-        currency:
-          type: string
-        maturityDate:
-          type: string
-          format: date
-        startDate:
-          type: string
-          format: date
-        fixedRate:
-          type: number
-          format: double
-        payReceive:
-          type: string
-          enum:
-          - PAY
-          - RECEIVE
-        clearingHouse:
-          type: string
     SubmissionResult:
       type: object
       description: Result of a data submission operation

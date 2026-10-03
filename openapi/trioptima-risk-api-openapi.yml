@@ -80,27 +80,6 @@ paths:
           description: Forbidden — read-only access
 components:
   schemas:
-    SubmissionResult:
-      type: object
-      description: Result of a data submission operation
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        recordsProcessed:
-          type: integer
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              tradeId:
-                type: string
-              errorCode:
-                type: string
-              errorMessage:
-                type: string
     RiskSubmission:
       type: object
       required:
@@ -125,6 +104,27 @@ components:
               tolerance:
                 type: number
                 format: double
+    SubmissionResult:
+      type: object
+      description: Result of a data submission operation
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        recordsProcessed:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              tradeId:
+                type: string
+              errorCode:
+                type: string
+              errorMessage:
+                type: string
     RiskData:
       type: object
       description: Risk constraints submitted by a participant
