@@ -80,30 +80,6 @@ paths:
           description: Forbidden — read-only access
 components:
   schemas:
-    RiskSubmission:
-      type: object
-      required:
-      - currency
-      - deltaLadder
-      properties:
-        currency:
-          type: string
-        deltaLadder:
-          type: array
-          items:
-            type: object
-            required:
-            - tenor
-            - dv01
-            properties:
-              tenor:
-                type: string
-              dv01:
-                type: number
-                format: double
-              tolerance:
-                type: number
-                format: double
     SubmissionResult:
       type: object
       description: Result of a data submission operation
@@ -153,6 +129,30 @@ components:
                 type: number
                 format: double
                 description: Allowed DV01 change after compression (fraction of original)
+    RiskSubmission:
+      type: object
+      required:
+      - currency
+      - deltaLadder
+      properties:
+        currency:
+          type: string
+        deltaLadder:
+          type: array
+          items:
+            type: object
+            required:
+            - tenor
+            - dv01
+            properties:
+              tenor:
+                type: string
+              dv01:
+                type: number
+                format: double
+              tolerance:
+                type: number
+                format: double
   securitySchemes:
     oauth2:
       type: oauth2
