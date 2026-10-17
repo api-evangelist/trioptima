@@ -87,6 +87,27 @@ paths:
           description: Forbidden
 components:
   schemas:
+    SubmissionResult:
+      type: object
+      description: Result of a data submission operation
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        recordsProcessed:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              tradeId:
+                type: string
+              errorCode:
+                type: string
+              errorMessage:
+                type: string
     Trade:
       type: object
       description: A derivative trade in a compression cycle
@@ -135,27 +156,6 @@ components:
           - accepted
           - rejected
           - terminated
-    SubmissionResult:
-      type: object
-      description: Result of a data submission operation
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-        recordsProcessed:
-          type: integer
-        errors:
-          type: array
-          items:
-            type: object
-            properties:
-              tradeId:
-                type: string
-              errorCode:
-                type: string
-              errorMessage:
-                type: string
     CycleResults:
       type: object
       description: Results of a completed compression cycle
