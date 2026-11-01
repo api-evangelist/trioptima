@@ -1,4 +1,4 @@
-# Trioptima (trioptima)
+# Trioptima
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,89 +66,168 @@
 
 Trioptima provides post-trade infrastructure services for the OTC derivatives market, including portfolio compression (triReduce), portfolio reconciliation (triResolve), and risk mitigation services. Originally founded in 2000, Trioptima became part of OSTTRA in 2021 — a joint venture combining MarkitServ, Traiana, TriOptima, and Reset to form a comprehensive post-trade services platform. Trioptima's services help financial institutions reduce counterparty risk, optimize capital requirements, and meet regulatory obligations across interest rate, credit, FX, and equity derivatives.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/trioptima/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/trioptima/refs/heads/main/apis.yml)
+**Areas:** CME Group · Derivatives · Financial Services · OSTTRA · Portfolio Compression · Post-Trade Services · Reconciliation · Risk Management
 
-## Tags
+## Trioptima on APIs.io
 
-- CME Group
-- Derivatives
-- Financial Services
-- OSTTRA
-- Portfolio Compression
-- Post-Trade Services
-- Reconciliation
-- Risk Management
+Everything profiled for Trioptima is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/trioptima/](https://apis.io/providers/trioptima/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-05-03
-- **Modified:** 2026-05-19
+- [Trioptima triResolve Portfolio Reconciliation](https://apis.io/apis/trioptima/triresolve/) — Trioptima triResolve is a web-based portfolio reconciliation service for OTC derivatives. It normalizes trade data, reconciles all fields using an…
+- [Trioptima Cycles API](https://apis.io/apis/trioptima/trioptima-cycles-api/) — Compression cycle discovery and management
+- [Trioptima Results API](https://apis.io/apis/trioptima/trioptima-results-api/) — Compression results and reports
+- [Trioptima Risk API](https://apis.io/apis/trioptima/trioptima-risk-api/) — Risk data submission and delta ladder management
+- [Trioptima Trades API](https://apis.io/apis/trioptima/trioptima-trades-api/) — Trade data submission and retrieval
 
-## APIs
+### Published properties
 
-### Trioptima triReduce API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The triReduce API provides machine-to-machine access to TriOptima's portfolio compression cycles for OTC derivatives. The API allows cycle participants to automate participation in compression cycles, submit trade and risk data, and retrieve cycle results. Available for rates (IRS, OIS) and credit derivatives compression. Authentication uses OAuth 2.0 with read-only access for development and full access for production. Documentation available at https://rates.trireduce.com/api/v1/doc.
+#### Agentic access (1)
 
-- **Human URL:** [https://osttra.com/services/optimisation/portfolio-compression/](https://osttra.com/services/optimisation/portfolio-compression/)
-- **Base URL:** `https://rates.trireduce.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Trioptima Agentic Access](https://apis.io/agentic-access/trioptima/trioptima-agentic-access/)
 
-- Compression
-- Derivatives
-- Portfolio Optimization
-- Risk Reduction
+#### JSON Schema (2)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api)
-- [OpenAPI](openapi/trioptima-trireduce-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/trioptima-trireduce-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/trioptima-trireduce-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Spectral Rules](rules/trioptima-rules.yml)
-- [Vocabulary](vocabulary/trioptima-vocabulary.yml)
+- [Trioptima Compression Cycle](https://apis.io/schemas/trioptima/trioptima-compression-cycle/)
+- [Trioptima Trade](https://apis.io/schemas/trioptima/trioptima-trade/)
 
-### Trioptima triResolve Portfolio Reconciliation
+#### JSON Structure (1)
 
-Trioptima triResolve is a web-based portfolio reconciliation service for OTC derivatives. It normalizes trade data, reconciles all fields using an algorithmic match engine, and provides break workflow for identifying, tracking, investigating, and resolving discrepancies. Over 1,500 firms use triResolve for bilateral and cleared portfolio reconciliation. Data submission via SFTP API file transfer or manual upload (QuickPort).
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://osttra.com/services/trade-lifecycle-services/portfolio-reconciliation/](https://osttra.com/services/trade-lifecycle-services/portfolio-reconciliation/)
-- **Base URL:** `https://triResolve.com`
+- [Trioptima Compression Cycle Structure](https://apis.io/json-structure/trioptima/trioptima-compression-cycle-structure/)
 
-#### Tags
+#### JSON-LD (1)
 
-- Collateral Management
-- Derivatives
-- Disputes
-- Reconciliation
-- Risk Management
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Trioptima Context](https://apis.io/jsonld/trioptima/trioptima-context/)
 
-- [Documentation](https://osttra.com/services/trade-lifecycle-services/portfolio-reconciliation/)
-- [Postman Collection](collections/trioptima-trireduce-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/trioptima-trireduce-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-## Common Properties
+The provider's domain terms, defined.
 
-- [LinkedIn](https://www.linkedin.com/company/trioptima)
+- [Trioptima Vocabulary](https://apis.io/vocabularies/trioptima/trioptima-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Trioptima Get Cycle Results Example](https://apis.io/examples/trioptima/trioptima-get-cycle-results-example/)
+- [Trioptima List Compression Cycles Example](https://apis.io/examples/trioptima/trioptima-list-compression-cycles-example/)
+- [Trioptima Submit Cycle Trades Example](https://apis.io/examples/trioptima/trioptima-submit-cycle-trades-example/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Trioptima triReduce Cycles API](https://apis.io/collections/trioptima/open-trioptima-cycles-api/)
+- [Trioptima triReduce Cycles Results API](https://apis.io/collections/trioptima/open-trioptima-results-api/)
+- [Trioptima triReduce Cycles Risk API](https://apis.io/collections/trioptima/open-trioptima-risk-api/)
+- [Trioptima triReduce Cycles Trades API](https://apis.io/collections/trioptima/open-trioptima-trades-api/)
+- [Trioptima triReduce API](https://apis.io/collections/trioptima/open-trioptima-trireduce-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Trioptima — jsonschema rules](https://apis.io/rules/trioptima/trioptima-jsonschema-spectral-rules/)
+- [Trioptima API Rules](https://apis.io/rules/trioptima/trioptima-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Trioptima Authentication](https://apis.io/security/trioptima/trioptima-authentication/)
+- [Trioptima Domain Security](https://apis.io/security/trioptima/trioptima-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Trioptima Scopes](https://apis.io/scopes/trioptima/trioptima-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Trioptima Plans Pricing](https://apis.io/plans/trioptima/trioptima-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Trioptima Rate Limits](https://apis.io/rate-limits/trioptima/trioptima-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Trioptima Finops](https://apis.io/finops/trioptima/trioptima-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://osttra.com)
-- [Website](https://osttra.com/login/trioptima-logins/)
 - [Documentation](https://www.cmegroup.com/education/brochures-and-handbooks/trireduce-api)
-- [Documentation](https://osttra.com/services/optimisation/portfolio-compression/)
-- [Documentation](https://osttra.com/services/trade-lifecycle-services/portfolio-reconciliation/)
-- [Git Hub](https://github.com/TriOptima)
-- [Git Hub](https://github.com/osttra)
-- [J S O N L D Context](json-ld/trioptima-context.jsonld)
-- [JSON Schema](json-schema/trioptima-compression-cycle-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/trioptima-trade-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Vocabulary](vocabulary/trioptima-vocabulary.yml)
-- [Features](undefined)
-- [Solutions](undefined)
-- [Integrations](undefined)
+- [Blog](https://osttra.com/insights/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.2** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 58.0 |
+| Contract governance | 27.3 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 7.9 |
+
+**Agent readiness 23.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 30.6** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/trioptima/](https://apis.io/providers/trioptima/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Trioptima: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/trioptima/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
